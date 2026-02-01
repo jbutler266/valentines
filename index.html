@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine?</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS: This handles the styling and layout */
+        body {
+            background-color: #fce4ec; /* Light pink background */
+            font-family: 'Varela Round', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevents scrolling if buttons get huge */
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            color: #d81b60;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap; /* Allows wrapping on small screens */
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Varela Round', sans-serif;
+        }
+
+        .yes-btn {
+            background-color: #4caf50; /* Green for go! */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .yes-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .no-btn {
+            background-color: #e53935; /* Red for stop */
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive tweak for mobile */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            img { width: 150px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img id="mainImage" src="https://media1.tenor.com/m/Z3RDGjKOIywAAAAC/happy-valentines-day-snoopy.gif" alt="Cute bear">
+        
+        <h1 id="question">Will you be my Valentine?</h1>
+        
+        <div class="btn-container">
+            <button class="yes-btn" onclick="handleYesClick()">Yes</button>
+            <button class="no-btn" onclick="handleNoClick()">No</button>
+        </div>
+    </div>
+
+    <script>
+        /* JavaScript: This handles the logic */
+        
+        let noClickCount = 0;
+        
+        // Phrases to cycle through when they click No
+        const phrases = [
+            "No",
+            "Are you sure?",
+            "Really sure?",
+            "Think again!",
+            "Last chance!",
+            "Surely not?",
+            "You might regret this!",
+            "Give it another thought!",
+            "Are you absolutely certain?",
+            "This could be a mistake!",
+            "Have a heart!",
+            "Don't be so cold!",
+            "Change of heart?",
+            "Wouldn't you reconsider?",
+            "Is that your final answer?",
+            "You're breaking my heart ;("
+        ];
+
+        function handleNoClick() {
+            noClickCount++;
+            
+            // 1. Change the text on the No button
+            const noBtn = document.querySelector('.no-btn');
+            // Use the modulo operator (%) to cycle through phrases indefinitely
+            noBtn.innerText = phrases[Math.min(noClickCount, phrases.length - 1)];
+
+            // 2. Make the Yes button grow!
+            const yesBtn = document.querySelector('.yes-btn');
+            // Get current font size and increase it
+            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = `${currentSize * 1.5}px`;
+        }
+
+        function handleYesClick() {
+            // 1. Change the image to a celebration gif
+            document.getElementById('mainImage').src = "https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif";
+            
+            // 2. Change the text
+            document.getElementById('question').innerText = "Yay! I love you! ❤️";
+            
+            // 3. Remove the buttons
+            document.querySelector('.btn-container').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
